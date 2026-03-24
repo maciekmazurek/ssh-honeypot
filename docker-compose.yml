@@ -1,0 +1,16 @@
+services:
+  honeypot:
+    build: .
+    container_name: ssh-honeypot
+    ports:
+      - "2222:2222"
+    volumes:
+      - ./logs:/app/logs:rw
+    restart: unless-stopped
+    environment:
+      - HONEYPOT_PORT=2222
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp

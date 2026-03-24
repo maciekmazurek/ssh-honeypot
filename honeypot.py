@@ -3,6 +3,7 @@ import threading
 import paramiko
 import json
 import logging
+import os
 from pathlib import Path
 from datetime import datetime, UTC
 from geo import get_geo
@@ -74,4 +75,6 @@ def run_honeypot(port=2222):
         sock.close()
 
 if __name__ == "__main__":
-    run_honeypot()
+    os.makedirs("logs", exist_ok=True)
+    port = int(os.getenv("HONEYPOT_PORT", 2222))
+    run_honeypot(port)
